@@ -11,12 +11,12 @@ namespace System_311.Threading
         private int nThreads;
         public void Run()
         {
-            Thread thread = new(ThreadMethod);
-            thread.Start();
-            thread.Join();   // очікування завершення потоку - блокується потік, що 
+            //Thread thread = new(ThreadMethod);
+            //thread.Start();
+            //thread.Join();   // очікування завершення потоку - блокується потік, що 
                              // викликає операцію (батьківській потік)
             Console.WriteLine("Threading Demo");
-            int N = 12;
+            int N = 10;
             sum = 100.0;
             // якщо необхідно чекати кілька потоків, то чекати треба кожен
             Thread[] threads = new Thread[N];
@@ -39,10 +39,10 @@ namespace System_311.Threading
             // Console.WriteLine("Total sum = {0:F2}", sum);
         }
 
-        private void ThreadMethod()
-        {
-            Console.WriteLine("Hello from thread 1");
-        }
+        //private void ThreadMethod()
+        //{
+        //    Console.WriteLine("Hello from thread 1");
+        //}
 
         private double sum;
         private object sumLocker = new();   // об'єкт, створений заради критичної секції
@@ -57,23 +57,23 @@ namespace System_311.Threading
             // x ??= -1;   x = (x!=null) ? x : -1
             int m = (int)(month ?? -1);
             Thread.Sleep(300);        // Імітація запиту АРІ
-            double percent = 10.0;    // з поверенням результату
+            double percent = 15.0;    // з поверенням результату
             double sumLocal;
             lock (sumLocker)
             {
                 sumLocal = sum *= 1.0 + percent / 100;
             }
-            Console.WriteLine("Month {2}: + {0:F1}% -> {1:F1} $", percent, sumLocal, m);
+            Console.WriteLine("Month {2}: + {0:F1}% -> {1:F1} $", percent, sumLocal);
 
-            lock (this)   // для синхронізації можна використовувати інші об'єкти
-            {
-                nThreads--;
-                if (nThreads == 0)
-                {
-                    Console.WriteLine("-------------------");
-                    Console.WriteLine("Total sum = {0:F2}", sum);
-                }
-            }
+            //lock (this)   // для синхронізації можна використовувати інші об'єкти
+            //{
+            //    nThreads--;
+            //    if (nThreads == 0)
+            //    {
+            //        Console.WriteLine("-------------------");
+            //        Console.WriteLine("Total sum = {0:F2}", sum);
+            //    }
+            //}
         }
     }
 }

@@ -13,14 +13,14 @@ namespace System_311.Tasks
             int w, c;
             ThreadPool.GetMinThreads(out w, out c);
             Console.WriteLine("Tasks Demo {0} {1}", w, c);
+            Console.WriteLine("----------------------------------------");
 
             _Run().Wait();      // Перехід до async методу            
-
+            Console.WriteLine("----------------------------------------");
             //Console.WriteLine(Task4("Name 5", 5).Result);   // У синх. Result очікує
 
             Console.WriteLine("TasksDemo Finished");
         }
-
         private async Task _Run()
         {
             // Task1();                              // Синхронний запуск (хоча метод помічений async)
